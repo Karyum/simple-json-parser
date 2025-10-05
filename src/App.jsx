@@ -39,6 +39,14 @@ function App() {
 
   return (
     <Flex className="main" justify="space-evenly">
+      <Button
+        className="repo-link"
+        type="link"
+        onClick={() => window.open('https://github.com/Karyum/simple-json-parser', '__blank')}
+      >
+        Github Repo
+      </Button>
+
       <Flex className="textarea-container" vertical gap={10}>
         <Flex gap={10} align="center">
           <span>Parse</span>
