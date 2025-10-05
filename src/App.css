@@ -1,0 +1,45 @@
+.main {
+  width: 95%;
+  margin: auto;
+}
+
+.textarea-container {
+  width: 35%;
+}
+
+.textarea {
+  height: calc(80vh + 35px);
+  background-color: antiquewhite;
+  width: 100%;
+  color: black;
+  font-family: sans-serif;
+  font-size: 18px;
+  resize: none;
+}
+
+.json-view-container {
+  width: 55%;
+  position: relative;
+  margin-top: 35px;
+}
+
+.json-view {
+  font-family: sans-serif;
+  height: 80vh;
+  border: 1px solid darkslategray;
+  padding: 20px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 20px;
+  border-radius: 8px;
+}
+
+.copy-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  z-index: 1;
+}
