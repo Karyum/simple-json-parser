@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Flex, Button, message, Switch } from 'antd'
+import JsonNode from './JsonNode'
 import './App.css'
 
 function isJsonStringValid(jsonString) {
@@ -9,28 +10,6 @@ function isJsonStringValid(jsonString) {
   } catch (e) {
     return false
   }
-}
-
-const syntaxHighlight = (json) => {
-  json = JSON.stringify(json, null, 2)
-  json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-
-  return json.replace(
-    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
-    (match) => {
-      let color = '#b5cea8' // numbers
-      if (/^"/.test(match)) {
-        if (/:$/.test(match)) {
-          color = '#9cdcfe' // keys
-        } else {
-          color = '#ce9178' // strings
-        }
-      } else if (/true|false|null/.test(match)) {
-        color = '#569cd6' // booleans/null
-      }
-      return `<span style="color: ${color}">${match}</span>`
-    }
-  )
 }
 
 function App() {
@@ -66,17 +45,15 @@ function App() {
       </Flex>
 
       <div className="json-view-container">
-        <pre
-          className="json-view"
-          dangerouslySetInnerHTML={{
-            __html:
-              mode === 'parse' && isJsonStringValid(json)
-                ? syntaxHighlight(JSON.parse(json))
-                : mode === 'compress' && isJsonStringValid(json)
-                ? JSON.stringify(JSON.parse(json))
-                : ''
-          }}
-        ></pre>
+        {mode === 'parse' && isJsonStringValid(json) ? (
+          <pre className="json-view">
+            <JsonNode value={JSON.parse(json)} isLast={true} />
+          </pre>
+        ) : (
+          <pre className="json-view">
+            {mode === 'compress' && isJsonStringValid(json) ? JSON.stringify(JSON.parse(json)) : ''}
+          </pre>
+        )}
         <Button
           className="copy-button"
           onClick={() => {
